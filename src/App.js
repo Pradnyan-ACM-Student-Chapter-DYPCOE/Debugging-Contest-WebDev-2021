@@ -4,10 +4,12 @@ import NotesList from "./components/NotesList";
 import Search from "./components/Search";
 import Header from "./components/Header";
 import TrashNotesList from "./components/TrashNotesList";
+import Note from "./components/Note";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [trashNotes, setTrashNotes] = useState([]);
+  const [searchNotes, setSearchNotes] = useState([]);
   const [showTrashNotes, setshowTrashNotes] = useState(false);
 
   const [searchText, setSearchText] = useState("");
@@ -42,18 +44,19 @@ const App = () => {
       text: text,
       date: new Date().toLocaleDateString(),
     };
-    notes.push(newNote);
+	 console.log('sdf')
+	 setNotes([...notes, newNote])
   };
 
-  const handleEditNote = (id, newText) => {
-    let oldNote = notes.filter((n) => n.id !== id);
-    oldNote = { newText };
-    const newNotes = [...notes, oldNote];
-    setNotes(newNotes);
+  const handleEditNote = (newText, id) => {
+	  let oldNote = { text: newText, id };
+	  const filteredNotes = notes.filter((n) => n.id !== id);
+	  const newNotes = [...filteredNotes, oldNote];
+     setNotes(newNotes);
   };
 
   const deleteNote = (id) => {
-    const newNotes = notes.filter((note) => note.id === id);
+    const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
 
     const trashNote = notes.filter((note) => note.id === id)[0];
@@ -73,22 +76,47 @@ const App = () => {
 
   const restoreAll = () => {
     const oldNotes = [...notes];
-    oldNotes.map((note) => trashNotes.push(note));
-    setNotes(oldNotes);
+    trashNotes.map((note) => oldNotes.push(note));
+	 setNotes(oldNotes);
+    setTrashNotes([]);
   };
+
+  const toggleColorMode = () => {
+		setDarkMode((prevMode) => !prevMode)
+  }
+
+  const emptyTrashPermanently = () => {
+	setTrashNotes([]);
+	localStorage.setItem("react-notes-app-trash-data", JSON.stringify([]));
+  }
+
+  const searchAndFilterNotes = (text) => {
+		if(text !== ""){
+			const filteredNotes = notes.filter((note) => {
+				const regex = new RegExp(`${text}`, "gi");
+				console.log(text)
+				console.log(regex)
+				return note.text.match(regex);
+			})
+			console.log(filteredNotes)
+			setSearchNotes(filteredNotes);
+		}else{
+			setSearchNotes([]);
+		}
+	}
 
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="container">
-        <Header handleToggleDarkMode={setDarkMode} />
+        <Header handleToggleDarkMode={toggleColorMode} />
         <button onClick={() => setshowTrashNotes(!showTrashNotes)}>
           {showTrashNotes ? "Show Notes" : "Show Trash Can"}
         </button>
         {showTrashNotes && <button onClick={restoreAll}>Restore All</button>}
         {showTrashNotes && (
-          <button onClick={() => setTrashNotes([])}>Empty Trash Can</button>
+          <button onClick={emptyTrashPermanently}>Empty Trash Can</button>
         )}
-        <Search handleSearchNote={setSearchText} />
+        <Search handleSearchNote={searchAndFilterNotes} />
         {!showTrashNotes && (
           <NotesList
             notes={notes}
@@ -111,3 +139,5 @@ const App = () => {
 };
 
 export default App;
+
+//Added my branch

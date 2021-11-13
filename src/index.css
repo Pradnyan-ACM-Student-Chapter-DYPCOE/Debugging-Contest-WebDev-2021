@@ -57,7 +57,6 @@ button {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  transform: scaleX(-1);
 }
 .search > ::placeholder {
   color: black;
