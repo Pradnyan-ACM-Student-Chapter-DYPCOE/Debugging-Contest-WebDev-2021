@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import RestoreIcon from "../assets/restore.png";
 
 const TrashNote = ({ id, text, date, restoreNote }) => {

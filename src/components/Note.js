@@ -25,7 +25,7 @@ const Note = ({ id, text, date, handleDeleteNote, handleEditNote }) => {
       )}
       <div className="note-footer">
         <div className="editFoot">
-          {editMode && <small>{characterLimit - noteText} Remaining</small>}
+          {editMode && <small>{characterLimit - noteText.length} Remaining</small>}
           {editMode && (
             <button
               className="editBtn"

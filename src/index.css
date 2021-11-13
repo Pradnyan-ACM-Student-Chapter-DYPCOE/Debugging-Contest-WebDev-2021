@@ -37,9 +37,9 @@ button {
   color: whitesmoke;
 }
 .dark-mode > .container > .notes-list > .note {
-  background: rgb(220, 220, 220);
+  background: rgb(56, 56, 56);
   box-shadow: none;
-  color: #281015;
+  color: whitesmoke;
 }
 .false {
   background: rgb(220, 220, 220);
@@ -140,7 +140,7 @@ textarea:focus {
 }
 .dark-mode > .container > .header > .horizontal {
   border-radius: 10px;
-  background: #a23851;
+  background: rgb(56, 56, 56);
   box-shadow: 5px 5px 0px #5c202e, -5px -5px 0px #e85074;
 }
 .dark-mode > .container > .notes-list > .new > textarea::placeholder {

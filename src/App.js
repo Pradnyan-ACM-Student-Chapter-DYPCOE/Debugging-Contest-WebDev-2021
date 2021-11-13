@@ -53,9 +53,14 @@ const App = () => {
   };
 
   const deleteNote = (id) => {
-    const newNotes = notes.filter((note) => note.id === id);
+    //const newNotes = notes.filter((note) => note.id === id);
+    const newNotes = [];
+    notes.forEach((note)=>{
+        if(note.id !== id){
+           newNotes.push(note);
+        }
+    })
     setNotes(newNotes);
-
     const trashNote = notes.filter((note) => note.id === id)[0];
     const newTrashNotes = [...trashNotes];
     newTrashNotes.push(trashNote);
