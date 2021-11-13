@@ -22,7 +22,7 @@ const AddNote = ({ handleAddNote }) => {
         onChange={handleChange}
       ></textarea>
       <div className="note-footer" style={{ flexDirection: "row" }}>
-        <small>{characterLimit - noteText} Remaining</small>
+        <small>{characterLimit - noteText.length} Remaining</small>
 
         <button className="save" onClick={handleSaveClick}>
           Save
