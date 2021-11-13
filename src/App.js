@@ -43,6 +43,7 @@ const App = () => {
       date: new Date().toLocaleDateString(),
     };
     notes.push(newNote);
+    setNotes(notes);
   };
 
   const handleEditNote = (id, newText) => {
@@ -53,10 +54,10 @@ const App = () => {
   };
 
   const deleteNote = (id) => {
-    const newNotes = notes.filter((note) => note.id === id);
+    const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
 
-    const trashNote = notes.filter((note) => note.id === id)[0];
+    const trashNote = notes.filter((note) => note.id === id);
     const newTrashNotes = [...trashNotes];
     newTrashNotes.push(trashNote);
     setTrashNotes(newTrashNotes);
@@ -77,10 +78,16 @@ const App = () => {
     setNotes(oldNotes);
   };
 
+  const handleDarkMode = () => {
+    darkMode ? setDarkMode(false) : setDarkMode(true)
+
+
+  }
+
   return (
     <div className={`${darkMode && "dark-mode"}`}>
       <div className="container">
-        <Header handleToggleDarkMode={setDarkMode} />
+        <Header handleToggleDarkMode={handleDarkMode} />
         <button onClick={() => setshowTrashNotes(!showTrashNotes)}>
           {showTrashNotes ? "Show Notes" : "Show Trash Can"}
         </button>
@@ -99,9 +106,7 @@ const App = () => {
         )}
         {showTrashNotes && (
           <TrashNotesList
-            notes={trashNotes.filter((note) =>
-              note.text.toLowerCase().includes(searchText.toLocaleLowerCase())
-            )}
+            notes={trashNotes}
             restoreNote={restoreNote}
           />
         )}

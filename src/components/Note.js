@@ -14,6 +14,7 @@ const Note = ({ id, text, date, handleDeleteNote, handleEditNote }) => {
 
   return (
     <div className="note">
+
       {!editMode && <span>{text}</span>}
       {editMode && (
         <textarea
