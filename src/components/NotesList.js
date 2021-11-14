@@ -6,6 +6,9 @@ const NotesList = ({
   handleAddNote,
   handleDeleteNote,
   handleEditNote,
+  // BUG12: Start
+  // searchText,
+  // BUG12: End
 }) => {
   return (
     <div className="notes-list">
@@ -18,8 +21,10 @@ const NotesList = ({
           handleEditNote={handleEditNote}
         />
       ))}
-
+      {/* BUG12: Start - Don't show add note section while searching */}
       <AddNote handleAddNote={handleAddNote} />
+      {/* {!searchText && <AddNote handleAddNote={handleAddNote} />} */}
+      {/* BUG12: End */}
     </div>
   );
 };
